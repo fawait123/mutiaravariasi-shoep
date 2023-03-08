@@ -1,4 +1,4 @@
-import { View, Text, FlatList } from 'react-native'
+import { View, Text, FlatList, ScrollView } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import ProductSingle from '../../../../components/product/single';
 import style from './style';
@@ -6,6 +6,7 @@ import { ActivityIndicator } from 'react-native-paper';
 import { COLOURS } from '../../../../constants/global';
 import axios from 'axios';
 import { Feather } from '@expo/vector-icons';
+import ProductList from '../../../../components/product/list';
 
 export default function Home() {
  const [loading,setLoading] = useState(false)
@@ -21,7 +22,10 @@ export default function Home() {
             <Text style={{fontSize:17, fontWeight:'500',color:COLOURS.gray}}>Search</Text>
          </View>
       </View>
-      <Text style={style.textTitle}>Order online collect in store</Text>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Text style={style.textTitle}>Order online collect in store</Text>
+        <ProductList />
+      </ScrollView>
     </View>
   )
 }
