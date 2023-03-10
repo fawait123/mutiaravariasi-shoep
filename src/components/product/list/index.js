@@ -3,8 +3,10 @@ import React, { useState } from 'react'
 import { COLOURS } from '../../../constants/global'
 import style from './style'
 import { Feather } from '@expo/vector-icons'
+import { useNavigation } from '@react-navigation/native'
 
 export default function ProductList() {
+    const navigation = useNavigation();
     const [category, setCategory] = useState(0)
     const data = [
         'All Category',
@@ -78,7 +80,7 @@ export default function ProductList() {
   }
 
   const ProductList = ({item})=>{
-    return <View style={style.containerCard}>
+    return <TouchableOpacity style={style.containerCard} onPress={()=>navigation.navigate('productDetailScreen',{productID:item.id})}>
         <View style={style.overlay}>
             <Image source={item.image} style={{
                 width:120,
@@ -88,7 +90,7 @@ export default function ProductList() {
         <Text style={style.textTitle}>{item.name}</Text>
         <Text style={style.textDesc}>{item.desc}</Text>
         <Text style={style.textPrice}>$ {item.price}</Text>
-    </View>
+    </TouchableOpacity>
   }
 
 

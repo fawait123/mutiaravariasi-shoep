@@ -6,6 +6,7 @@ import HomeScreen from '../../screens/home'
 import SplashScreen from '../../screens/splash'
 import LoginScreen from '../../screens/login'
 import SearchScreen from '../../screens/search'
+import ProductDetailScreen from '../../screens/productDetail'
 
 const Stack = createNativeStackNavigator()
 const EmpyComponent = ()=>{
@@ -19,6 +20,7 @@ export default function MainNavigation() {
             <Stack.Screen name="loginScreen" component={LoginScreen} options={{headerShown:false}} />
             <Stack.Screen name="searchScreen" component={SearchScreen} options={{headerShown:false}} />
             <Stack.Screen name="splashScreen" component={SplashScreen} options={{headerShown:false}} />
+            <Stack.Screen name="productDetailScreen" component={ProductDetailScreen} options={{headerShown:false}} />
         </Stack.Navigator>
         <StatusBar barStyle="default" />
     </NavigationContainer>
