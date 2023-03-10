@@ -1,13 +1,48 @@
-import { View, Text, TouchableOpacity, TextInput, ScrollView } from 'react-native'
-import React from 'react'
+import { View, Text, TouchableOpacity, TextInput, ScrollView, FlatList, Image, Dimensions, Animated } from 'react-native'
+import React, { useRef } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import style from './style'
 import { Feather } from '@expo/vector-icons'
 import { COLOURS } from '../../constants/global'
 
+const width = Dimensions.get('window').width
 export default function ProductDetailScreen({route}) {
 const navigation = useNavigation()
   const id = route.params.productID
+  const data = [
+    {
+        id:1,
+        image:require('./../../../assets/Jam.png')
+    },
+    {
+        id:2,
+        image:require('./../../../assets/Jam.png')
+    },
+    {
+        id:3,
+        image:require('./../../../assets/Jam.png')
+    }
+  ];
+
+    const SPACING = 5;
+    const ITEM_LENGTH = width * 0.8; // Item is a square. Therefore, its height and width are of the same length.
+    const BORDER_RADIUS = 20;
+    // This constant is defined outside of the `<ImageCarousel>` component.
+    const CURRENT_ITEM_TRANSLATE_Y = 48;
+    // This line is outside of `renderItem`.
+    const scrollX = useRef(new Animated.Value(0)).current;
+
+  const ImageSingle = ({item})=>{
+    return <View style={{
+        width:Dimensions.get('window').width,
+
+        marginHorizontal:10,
+        justifyContent:'center',
+        alignItems:'center'
+    }}>
+        <Image source={item.image} />
+    </View>
+  }
   return (
     <View style={style.container}>
       <View style={style.containerHeader}>
@@ -19,7 +54,33 @@ const navigation = useNavigation()
         </TouchableOpacity>
       </View>
       <View style={style.containerSlider}>
-        <Text>Gambar</Text>
+      <FlatList 
+            data={data} 
+            horizontal={true}
+            keyExtractor={item=>item.id} 
+            bounces={false}
+            renderToHardwareTextureAndroid
+            decelerationRate={0}
+            snapToInterval={ITEM_LENGTH}
+            snapToAlignment="start"
+            showsHorizontalScrollIndicator={false}
+            onScroll={
+                Animated.event(
+                    [
+                    {
+                        nativeEvent:{
+                            contentOffset:{
+                                x:scrollX
+                            }
+                        }
+                    }
+                ],
+                {
+                    useNativeDriver:false
+                }
+                )
+            }
+            renderItem={({item})=><ImageSingle item={item} />} />
       </View>
      <View  style={style.containerBottom}>
      <ScrollView showsVerticalScrollIndicator={false}>
