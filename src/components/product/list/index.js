@@ -2,6 +2,7 @@ import { View, Text, FlatList, TouchableOpacity, Image } from 'react-native'
 import React, { useState } from 'react'
 import { COLOURS } from '../../../constants/global'
 import style from './style'
+import { Feather } from '@expo/vector-icons'
 
 export default function ProductList() {
     const [category, setCategory] = useState(0)
@@ -84,9 +85,9 @@ export default function ProductList() {
                 height:120
             }} />
         </View>
-        <Text>{item.name}</Text>
-        <Text>{item.desc}</Text>
-        <Text>{item.price}</Text>
+        <Text style={style.textTitle}>{item.name}</Text>
+        <Text style={style.textDesc}>{item.desc}</Text>
+        <Text style={style.textPrice}>$ {item.price}</Text>
     </View>
   }
 
@@ -107,6 +108,16 @@ export default function ProductList() {
         data={products} 
         keyExtractor={item=>item.id} 
         renderItem={({item})=><ProductList item={item} />} />
+
+        <View style={{
+            flexDirection:'row',
+            alignItems:'center',
+            justifyContent:'flex-end',
+            marginTop:29
+        }}>
+            <Text style={style.textMore}>See More</Text>
+            <Feather name="arrow-right" color={COLOURS.blue} size={15} style={{fontWeight:'600', marginLeft:8}} />
+        </View>
       </View>
     </View>
   )
